@@ -36,6 +36,10 @@ extern void launchBTDiscovery();
 extern int btQueueBlocked;
 extern int btQueueLengthSum;
 extern int btQueueLengthCount;
+#  ifndef AttemptBLECOnnect
+#    define AttemptBLECOnnect true //do we by default attempt a BLE connection to sensors with ESP32
+#  endif
+bool bleConnect = AttemptBLECOnnect;
 #endif
 
 /*----------------------BT topics & parameters-------------------------*/
@@ -74,6 +78,7 @@ extern int btQueueLengthCount;
 
 unsigned int BLEinterval = TimeBtwRead; //time between 2 scans
 unsigned int BLEscanBeforeConnect = ScanBeforeConnect; //Number of BLE scans between connection cycles
+unsigned long scanCount = 0;
 bool publishOnlySensors = PublishOnlySensors;
 
 #ifndef pubKnownBLEServiceData

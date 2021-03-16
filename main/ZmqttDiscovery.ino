@@ -174,7 +174,7 @@ void pubMqttDiscovery() {
   createDiscovery("sensor", //set Type
                   subjectSYStoMQTT, "SYS: Uptime", (char*)getUniqueId("uptime", "").c_str(), //set state_topic,name,uniqueId
                   "", "", "{{ value_json.uptime }}", //set availability_topic,device_class,value_template,
-                  "", "", "s", //set,payload_on,payload_off,unit_of_meas,
+                  "", "", "min", //set,payload_on,payload_off,unit_of_meas,
                   0, //set  off_delay
                   "", "", true, "", //set,payload_avalaible,payload_not avalaible   ,is a gateway entity, command topic
                   "", "", "", "", false // device name, device manufacturer, device model, device mac, retain
@@ -707,6 +707,14 @@ void pubMqttDiscovery() {
                   "{\"lowpowermode\":2}", "{\"lowpowermode\":0}", "", //set,payload_on,payload_off,unit_of_meas,
                   0, //set off_delay
                   "", "", true, subjectMQTTtoBTset, //set,payload_avalaible,payload_not avalaible,is a gateway entity, command topic
+                  "", "", "", "", true // device name, device manufacturer, device model, device mac, retain
+  );
+  createDiscovery("switch", //set Type
+                  "", "BT: Connect to devices", (char*)getUniqueId("bleconnect", "").c_str(), //set state_topic,name,uniqueId
+                  "", "", "", //set availability_topic,device_class,value_template,
+                  "{\"bleconnect\":true}", "{\"bleconnect\":false}", "", //set,payload_on,payload_off,unit_of_meas,
+                  0, //set  off_delay
+                  Gateway_AnnouncementMsg, will_Message, true, subjectMQTTtoBTset, //set,payload_avalaible,payload_not avalaible   ,is a gateway entity, command topic
                   "", "", "", "", true // device name, device manufacturer, device model, device mac, retain
   );
 #    endif
