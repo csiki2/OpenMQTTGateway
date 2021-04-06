@@ -62,11 +62,17 @@ bool bleConnect = AttemptBLECOnnect;
 #ifndef ScanBeforeConnect
 #  define ScanBeforeConnect 10 //define number of scans before connecting to BLE devices (ESP32 only, minimum 1)
 #endif
+#ifndef BLEScanDuplicateCacheSize
+#  define BLEScanDuplicateCacheSize 200
+#endif
 #ifndef TimeBtwRead
 #  define TimeBtwRead 55555 //define default time between 2 scans
 #endif
 #ifndef PublishOnlySensors
 #  define PublishOnlySensors false //false if we publish all BLE devices discovered or true only the identified sensors (like temperature sensors)
+#endif
+#ifndef HassPresence
+#  define HassPresence false //false if we publish into Home Assistant presence topic
 #endif
 
 #ifndef BTQueueSize
@@ -89,6 +95,7 @@ unsigned int BLEinterval = TimeBtwRead; //time between 2 scans
 unsigned int BLEscanBeforeConnect = ScanBeforeConnect; //Number of BLE scans between connection cycles
 unsigned long scanCount = 0;
 bool publishOnlySensors = PublishOnlySensors;
+bool hassPresence = HassPresence;
 
 #ifndef pubKnownBLEServiceData
 #  define pubKnownBLEServiceData false // define true if you want to publish service data belonging to recognised sensors
@@ -107,7 +114,6 @@ bool publishOnlySensors = PublishOnlySensors;
 #endif
 
 /*-------------------HOME ASSISTANT ROOM PRESENCE ----------------------*/
-// if not commented Home presence integration with HOME ASSISTANT is activated
 #define subjectHomePresence "home_presence/" // will send Home Assistant room presence message to this topic (first part is same for all rooms, second is room name)
 
 enum ble_sensor_model {
